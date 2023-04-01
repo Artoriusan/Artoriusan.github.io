@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style>
+   H1 { 
+    font-size: 300%; 
+    font-family: Dax; 
+    color: #333366; 
+   }
+   H2 {
+   font-size: 130%; 
+   font-family: Dax;  
+   }
+  </style>
+</head>
+
+<body>
+
+<h1> My Great Knife Collection </h1>
+
+Welcome to my greatest creation! Today I will will show you the collection of my knives, telling you their condition and, if you keep it a secret, their licence condition)
+
+<div id='data'>
+here be dragons
+</div>
+
+
+<script>
+// Формируем JSON с SQL-командой
+const body = {
+  "transaction": [
+  {
+    "query": "SELECT * FROM tori_table"
+  },
+ ]
+};
+
+// Делаем запрос
+var xhr = new XMLHttpRequest();
+var url = "http://176.124.209.11:12321/testDb";
+xhr.open("POST", url, true);
+xhr.setRequestHeader("Content-Type", "application/json");
+// Указываем функцию, которая будет вызвана, когда будет получен ответ
+xhr.onreadystatechange = printResponse;
+
+xhr.send(JSON.stringify(body));
+
+// Эта функция автоматически вызовется, когда получим ответ
+function printResponse() { 
+  var d = document.getElementById('data')
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    console.log('lpk');
+    var json = JSON.parse(xhr.responseText);
+    var s = "<TABLE>"
+    s+= "<TR><TD><h2>Knife<h2></TD><TD><h2>Durability<h2></TD><TD><h2>Licence status<h2></TD></TR>"
+    for (row in a = json['results'][0]['resultSet']) {
+	s+= "<TR>"
+    	s+= "<TD>" + '<center>' + a[row]['knife'] + '</center>' + "</TD>"
+	s+= "<TD>" + '<center>' + a[row]['durability'] + '</center>' + "</TD>"
+	s+= "<TD>" + '<center>' + a[row]['lisence'] + '</center>' + "</TD>"
+    	s+="</TR>"
+    }
+	
+    s += '</TABLE>'
+    alert(s)
+    d.innerHTML = s
+}
+else {
+console.log('oops')
+d.innerHTML = '<H1>ERRORRR</H1>'
+}
+}
+</script>
+
+<img src="https://sc04.alicdn.com/kf/U0e630ec130554b168429dda55bcd155c8.jpg" alt="Damascus one!" width="100" height="120">
+<img src="https://aerolite.org/wp-content/uploads/2021/05/MeteoriteKnife_461_2-scaled.jpg" alt="alternatetext" width="100" height="120">
+<img src="https://cdn.myshoptet.com/usr/www.wojoczek.com/user/shop/big/11220-1_the-longest-spring-knife-italy-33-5-cm-n-518a-xxl.jpg?629e120a" alt="alternatetext" width="100" height="120">
+
+</body>
+
+</html>
